@@ -30,4 +30,4 @@ ORDER BY salary;
 --Kolonları birleştirmeyi aşağıdaki kodlarla yaptım.
 --İsim ve soyisimleri tek kolonda birleştirdim ve o kolona fullname ismi verdim as sayesinde.
 SELECT firstname || ' ' || lastname as fullname
-FROm employees;
+FROM employees;
