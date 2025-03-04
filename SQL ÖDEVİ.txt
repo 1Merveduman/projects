@@ -1,0 +1,33 @@
+-- Verilen dosyalarla veri tabanımı kurdum. Sonrasında aşağıdaki kodlarla tablolarımı oluşturdum.
+SELECT * FROM employees
+
+SELECT * FROM departments
+
+--Belirli kolonları seçme görevini aşağıdaki kodlarla yaptım. 
+--SELECT komutu seçtiğimiz kolonları çağırırken FROM ise employees tablosundan olduğunu belirtir.
+SELECT  firstname, lastname, salary
+FROM employees;
+
+
+--DISTINCT komutuyla departmanlarda tekrarları önledim. Bu komutla özellikle
+--istediğim kolondaki tekrarlamaları sıfıra indirmiş oldum.
+SELECT DISTINCT departmentid
+FROM employees
+
+-- Sadece IT departmanında çalışanların bilgilerini getiren bir SQL sorgusu yazdım.
+SELECT * 
+FROM employees
+WHERE departmentid = 1;
+
+
+--Maaşa göre sıralamayı aşağıdaki kodlarımla yaptım. 
+--ORDER BY komutuyla salary kolonunu küçükten büyüğe sıraladım.
+--ASC de yazabilirdim ama gerek yoktu.
+SELECT * FROM employees
+ORDER BY salary;
+
+
+--Kolonları birleştirmeyi aşağıdaki kodlarla yaptım.
+--İsim ve soyisimleri tek kolonda birleştirdim ve o kolona fullname ismi verdim as sayesinde.
+SELECT firstname || ' ' || lastname as fullname
+FROm employees;
