@@ -1,0 +1,40 @@
+--INVOICE TABLOSUNUN TÜM KOLONLARINI GÖRMEK İÇİN BU KODU YAZDIM.
+SELECT * FROM invoice
+
+
+-- Invoice tablosundan tüm değerlerin NULL olanları bulmak için her kolona IS NULL komutunu kullandım.
+
+SELECT COUNT(*)
+FROM Invoice
+WHERE invoice_id IS NULL
+  AND customer_id IS NULL
+  AND invoice_date IS NULL
+  AND billing_address IS NULL
+  AND billing_city IS NULL
+  AND billing_state IS NULL
+  AND billing_country IS NULL
+  AND billingpostal_code IS NULL
+  AND total IS NULL;
+
+-- Row count:0 (sıfır)
+
+--------------------------------------------------------------------------------------
+
+-- Değerlerin 2 katıyla karşılaştırmak için kolona AS ile original_total ismi verdim.
+--daha sonra 2 katını doubled_total olarak farklı bir kolona yazdırdım. DESC fonksiyonu ile büyükten küçüğe sıraladım.
+SELECT 
+    total AS original_total,
+    total * 2 AS doubled_total
+FROM Invoice
+ORDER BY doubled_total DESC;
+------------------------------------------------------------------------
+
+--Adres kolonunun soldan 3 bileşinini almak için LEFT sağdan 4 bileşeni için RIGHT fonkdiyonu kullandım.
+--Bunlara açık adres ismi verdim ve 2013 8. aydaki verileri bulmak için WHERE ve EXTRACT kullandım.
+
+SELECT 
+    LEFT(billing_address, 3) || ' ' || RIGHT(billing_address, 4) AS "Açık Adres"
+FROM Invoice
+WHERE EXTRACT(YEAR FROM invoice_date) = 2013
+  AND EXTRACT(MONTH FROM invoice_date) = 8;
+--7 satır çıktı.
