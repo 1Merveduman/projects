@@ -1,0 +1,58 @@
+----------------------------------------------------------------------
+---ÖDEV 3:-----------------------------------------------------------
+--1. Soru:
+
+SELECT * FROM invoice
+
+---- İlk satırda total sütununu as komutuyla totalamount' a çevirdim  
+----WHERE fonksiyonuyla billing_country sürununda 'USA' seçimini sağladım.
+---- Tarihten özellikle Yılı çekmek için EXTRACT fonksiyonunu kullandım.
+--- Sonuç 103.95 çıktı
+
+SELECT SUM(total) AS TotalAmount
+FROM invoice
+WHERE billing_country = 'USA'
+  AND EXTRACT(YEAR FROM invoice_date) = 2009;
+
+
+---2. Soru:
+
+SELECT * FROM track;
+SELECT * FROM playlist;
+SELECT * FROM playlisttrack;
+
+---Tabloları birleştirerek, track tablosundan parçaların adlarını ve playlist tablosundan bu parçaların bulunduğu oynatma listelerinin adlarını alıyoruz. 
+--Bu sorgu, yalnızca parçanın ve oynatma listesinin isimlerini gösterir, böylece gereksiz karmaşıklığa girmeden temel bilgiyi sunar.
+
+
+SELECT 
+    track.name AS track_name,
+    playlist.name AS playlist_name
+FROM 
+    track
+JOIN 
+    playlisttrack ON track.track_id = playlisttrack.track_id
+JOIN 
+    playlist ON playlisttrack.playlist_id = playlist.playlist_id;
+
+
+--3. Soru
+
+SELECT * FROM track
+
+----- "Let There Be Rock" albümüne ait parçaları, sanatçı adlarını ve parça sürelerini büyükten küçüğe sıralı şekilde döndürecektir.
+
+SELECT 
+    track.name AS track_name, 
+	artist.name AS artist_name, 
+    track.milliseconds
+FROM 
+    track
+JOIN 
+    album ON track.album_id = album.album_id
+JOIN 
+    artist ON album.artist_id = artist.artist_id
+WHERE 
+    album.title = 'Let There Be Rock'
+ORDER BY 
+    track.milliseconds DESC;
